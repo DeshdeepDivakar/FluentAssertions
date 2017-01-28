@@ -50,6 +50,7 @@ namespace FluentAssertions.Equivalency
         private readonly List<Type> valueTypes = new List<Type>();
 
         private readonly Func<Type, bool> isValueType = _ => false;
+        private bool isTracing;
 
         #endregion
 
@@ -80,6 +81,7 @@ namespace FluentAssertions.Equivalency
             orderingRules = new OrderingRuleCollection(defaults.OrderingRules);
 
             isValueType = defaults.IsValueType;
+            isTracing = defaults.IsTracing;
 
             RemoveSelectionRule<AllPublicPropertiesSelectionRule>();
             RemoveSelectionRule<AllPublicFieldsSelectionRule>();
@@ -487,6 +489,15 @@ namespace FluentAssertions.Equivalency
             return (TSelf) this;
         }
 
+        /// <summary>
+        /// Enables tracing the steps the equivalency validation followed to compare two graphs.
+        /// </summary>
+        public TSelf WithTracing()
+        {
+            isTracing = true;
+            return (TSelf)this;
+        }
+
         #region Non-fluent API
 
         protected void RemoveSelectionRule<T>() where T : IMemberSelectionRule
@@ -572,6 +583,11 @@ namespace FluentAssertions.Equivalency
 
             return builder.ToString();
         }
+
+        /// <summary>
+        /// Gets a value indicating whether this equivalency assertion will trace the way objects are compared.
+        /// </summary>
+        public bool IsTracing => isTracing;
 
         /// <summary>
         /// Defines additional overrides when used with <see cref="EquivalencyAssertionOptions.When"/>

@@ -58,6 +58,7 @@ namespace FluentAssertions.Equivalency
                         {
                             if (step.Handle(context, this, config))
                             {
+                                scope.AddReportable("trace", $"Handled path {context.SelectedMemberPath} using {step.GetType().Name}");
                                 wasHandled = true;
                                 break;
                             }

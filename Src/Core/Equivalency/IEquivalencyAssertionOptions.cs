@@ -66,6 +66,11 @@ namespace FluentAssertions.Equivalency
         bool IncludeFields { get; }
 
         /// <summary>
+        /// Gets a value indicating whether this equivalency assertion will trace the way objects are compared.
+        /// </summary>
+        bool IsTracing { get; }
+
+        /// <summary>
         /// Gets a value indicating whether the <paramref name="type"/> should be treated as having value semantics.
         /// </summary>
         bool IsValueType(Type type);
